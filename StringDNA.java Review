@@ -1,0 +1,90 @@
+/**
+ * Given a DNA String consisting of bases A, T, C, and G, this program will return the reverse complement of that DNA strand. ThinkJava was consulted to create this program.
+ *
+ * @author MaKarie Myers
+ * @author Valentina Young-Wood
+ * @version 9/2/2019
+ */
+public class StringDNA
+{
+    /**
+     * This method serves as a demonstration of the class. 
+     * It prints three statements to the console showing what the DNA String it will be converting is and the reverse, the complement, and the reverse complement of that String.
+     */
+    public static void main(String [] args){
+        StringDNA dna = new StringDNA();
+        String test = "ATG";
+        System.out.println("The reverse of "+ test +" is " + dna.getReverse(test));
+        System.out.println("The complement of "+ test +" is " + dna.getComplement(test));
+        System.out.println("The reverse complement of "+ test +" is " + dna.getReverseComplement(test));
+    }
+    
+    /**
+     * Returns the reverse of the DNA strand provided
+     * 
+     * @param original the input DNA String that will be reversed
+     * @return the String reverse of the input strand
+     */
+    public String getReverse(String original){
+        int index = (original.length()); //stores the length of the given String as an int for later use
+        char[] origin = original.toCharArray(); //converts the given String to a character array
+        char[] reverse = new char[index]; //creates a character array with a length equal to the length of the original string to hold the reverse
+        int j = 0; //int to serve as the beginning index for reverse[]
+        for (int i=index-1; i>=0; i--)
+        {
+            reverse[j] = origin[i];
+            j++;
+        }
+        String rev= new String(reverse); //converts the reverse char array into a String
+        return rev; //returns the reverse as a String
+        //for main(), this should return GTA
+    }
+    
+    /**
+     * Returns the complement of the DNA strand provided based on base pairing rules (A pairs with T, G pairs with C.)
+     * 
+     * @param original the input DNA String that will have each letter replaced by its pair
+     * @return the String complement of the input strand
+     */
+    public String getComplement(String original){
+        int index = (original.length()); //stores the length of the given String as an int for later use
+        char [] dna = original.toCharArray(); //converts the given String to a character array
+        char [] comp = new char[index]; //creates a character array with a length equal to the length of the original string to hold the complement
+        for (int i = 0; i < index; i++) 
+        {
+            if (dna[i] == 'A') //if the given string had an A, put a T in the complement
+            {
+                comp[i] = 'T';
+            }
+            else if (dna[i] == 'T')
+            {
+                comp[i] = 'A';
+            }
+            else if (dna[i] == 'G')
+            {
+                comp[i] = 'C';
+            }
+            else if(dna[i] == 'C')
+            {
+                comp[i] = 'G';
+            }
+            else //in case the given string contained a value that wasn't A, T, C, or G
+                comp[i] = '?';
+        }
+        String complement = new String(comp); //converts the complement char array into a string
+        return complement; //returns the complement as a String
+        //for main(), this should return TAC
+    }
+    
+    /**
+     * Returns the reverse complement of the DNA strand provided.
+     * 
+     * @param original the input DNA String that will have each letter replaced by its pair and will then be reversed
+     * @return the String reverse complement of the input strand
+     */
+    public String getReverseComplement(String original){
+        String revComp = getReverse(getComplement(original)); //creates a String and calls getReverse() on getComplement() with the given DNA strand
+        return revComp; //returns the reverse complement as a String
+        //for main(), this should return CAT.
+    }
+}
